@@ -5,7 +5,6 @@ from nonebot import require
 require("nonebot_plugin_alconna")
 
 from nonebot.log import logger
-from nonebot.adapters.onebot.v11 import Event
 from nonebot.plugin import PluginMetadata
 from nonebot_plugin_alconna import (
     on_alconna,
@@ -13,12 +12,12 @@ from nonebot_plugin_alconna import (
     Arparma,
     UniMessage,
     Image,
-    At,
 )
 
 from .config import Config
 from .command import DrawCommand
 from .aidraw import aidraw
+from .utils import extract_tags
 
 __plugin_meta__ = PluginMetadata(
     name="nonebot-plugin-sd-comfy",
@@ -30,7 +29,7 @@ __plugin_meta__ = PluginMetadata(
 )
 
 # 导入api.json
-with open("src/plugins/sd-comfy/api.json", "r", encoding="utf-8") as f:
+with open("src/plugins/nonebot-plugin-sd-comfy/api.json", "r", encoding="utf-8") as f:
     ApiJson = json.load(f)
 
 
@@ -43,24 +42,27 @@ async def _(Args_out: Arparma = AlconnaMatches()):
     if Args_out.matched:
         PositiveTags = Args_out.main_args
         Other_args = Args_out.other_args
-        CharacterNumber = "1girl"  # test
-        CharacterName = "toki"  # test
-        images = await aidraw(ApiJson, CharacterNumber, CharacterName, PositiveTags)
+        # 调用函数并打印结果
+        CharacterNumber, PositiveTags = extract_tags(PositiveTags)
+        CharacterName = ""  # test
+        NegativeTags = Other_args.get("NegativeTags")
+        images = await aidraw(
+            ApiJson, CharacterNumber, CharacterName, PositiveTags, NegativeTags
+        )
         if images:
             logger.success("SD 绘制成功")
             for image_data in images:
                 image = io.BytesIO(image_data)
                 await AIDraw.send(
-                    UniMessage(
-                        ["你的画图结果来啦"],
-                        At("user", str(Event.get_user_id)),
-                        [Image(raw=image)],
-                    ).export()
+                    await UniMessage(
+                        ["你的画图结果来啦", Image(raw=image)],
+                    ).export(),
+                    at_sender=True,
                 )
             logger.success("绘图结果发送成功")
             await AIDraw.finish()
         logger.error("SD 绘制失败")
-        await AIDraw.send(UniMessage(["绘制失败"], At("user", str(Event.get_user_id))))
+        await AIDraw.send("SD 后端绘制失败", at_sender=True)
         await AIDraw.finish()
 
     logger.warning("画图命令解析有误: " + str(Args_out))

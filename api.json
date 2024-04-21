@@ -1,338 +1,338 @@
-{
-    "11": {
-      "inputs": {
-        "action": "append",
-        "tidy_tags": "yes",
-        "text_a": [
-          "13",
-          0
-        ],
-        "text_b": [
-          "16",
-          0
-        ],
-        "text_c": [
-          "17",
-          0
-        ]
-      },
-      "class_type": "StringFunction|pysssss",
-      "_meta": {
-        "title": "Add Positive Prompt String Function 🐍"
-      }
+ {
+ "11": {
+    "inputs": {
+      "action": "append",
+      "tidy_tags": "yes",
+      "text_a": [
+        "13",
+        0
+      ],
+      "text_b": [
+        "16",
+        0
+      ],
+      "text_c": [
+        "17",
+        0
+      ]
     },
-    "13": {
-      "inputs": {
-        "string": "1girl,"
-      },
-      "class_type": "String Literal",
-      "_meta": {
-        "title": "Character Number (eg: 1girl or 2girls)"
-      }
-    },
-    "16": {
-      "inputs": {
-        "string": "ang, solo"
-      },
-      "class_type": "String Literal",
-      "_meta": {
-        "title": "Character Name (Use for LoRA etc...)"
-      }
-    },
-    "17": {
-      "inputs": {
-        "string": "messy grey long hair, (futa1.21), tattoo, bandages, hair between eyes, (bodypaint1.1), (ahoge1.1), beautiful detailed green eyes"
-      },
-      "class_type": "String Literal",
-      "_meta": {
-        "title": "General Prompt (What is the character doing）"
-      }
-    },
-    "18": {
-      "inputs": {
-        "action": "append",
-        "tidy_tags": "yes",
-        "text_a": [
-          "11",
-          0
-        ],
-        "text_b": [
-          "19",
-          0
-        ],
-        "text_c": [
-          "124",
-          0
-        ]
-      },
-      "class_type": "StringFunction|pysssss",
-      "_meta": {
-        "title": "Add Positive Prompt String Function 🐍"
-      }
-    },
-    "19": {
-      "inputs": {
-        "string": "masterpiece, best quality,"
-      },
-      "class_type": "String Literal",
-      "_meta": {
-        "title": "Quality Prompt"
-      }
-    },
-    "20": {
-      "inputs": {
-        "string": "nsfw, lowres, bad anatomy, bad hands, text, error, 5 fingers, 6 fingers, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name"
-      },
-      "class_type": "String Literal",
-      "_meta": {
-        "title": "Negative Prompt"
-      }
-    },
-    "21": {
-      "inputs": {
-        "ckpt_name": "animagineXLV31_v31.safetensors"
-      },
-      "class_type": "CheckpointLoaderSimple",
-      "_meta": {
-        "title": "Load Checkpoint"
-      }
-    },
-    "22": {
-      "inputs": {
-        "vae_name": "sdxl_vae.safetensors"
-      },
-      "class_type": "VAELoader",
-      "_meta": {
-        "title": "Load VAE"
-      }
-    },
-    "25": {
-      "inputs": {
-        "lora_name": "sdxl\\\\SDXLFaeTastic2400.safetensors",
-        "strength_model": 1,
-        "strength_clip": 1,
-        "model": [
-          "21",
-          0
-        ],
-        "clip": [
-          "31",
-          0
-        ]
-      },
-      "class_type": "LoraLoader",
-      "_meta": {
-        "title": "Load LoRA"
-      }
-    },
-    "31": {
-      "inputs": {
-        "stop_at_clip_layer": -2,
-        "clip": [
-          "21",
-          1
-        ]
-      },
-      "class_type": "CLIPSetLastLayer",
-      "_meta": {
-        "title": "Clip skip (CLIP Set Last Layer)"
-      }
-    },
-    "35": {
-      "inputs": {
-        "model": [
-          "25",
-          0
-        ],
-        "clip": [
-          "25",
-          1
-        ],
-        "vae": [
-          "22",
-          0
-        ],
-        "positive": [
-          "49",
-          0
-        ],
-        "negative": [
-          "50",
-          0
-        ]
-      },
-      "class_type": "ToBasicPipe",
-      "_meta": {
-        "title": "ToBasicPipe"
-      }
-    },
-    "49": {
-      "inputs": {
-        "text": [
-          "18",
-          0
-        ],
-        "clip": [
-          "25",
-          1
-        ]
-      },
-      "class_type": "CLIPTextEncode",
-      "_meta": {
-        "title": "Positive CLIP Text Encode (Prompt)"
-      }
-    },
-    "50": {
-      "inputs": {
-        "text": [
-          "20",
-          0
-        ],
-        "clip": [
-          "25",
-          1
-        ]
-      },
-      "class_type": "CLIPTextEncode",
-      "_meta": {
-        "title": "Negative CLIP Text Encode (Prompt)"
-      }
-    },
-    "66": {
-      "inputs": {
-        "add_noise": true,
-        "noise_seed": 879566234374450,
-        "steps": [
-          "77",
-          0
-        ],
-        "cfg": [
-          "76",
-          0
-        ],
-        "sampler_name": [
-          "78",
-          0
-        ],
-        "scheduler": "normal",
-        "start_at_step": 0,
-        "end_at_step": 10000,
-        "return_with_leftover_noise": false,
-        "basic_pipe": [
-          "35",
-          0
-        ],
-        "latent_image": [
-          "69",
-          0
-        ]
-      },
-      "class_type": "ImpactKSamplerAdvancedBasicPipe",
-      "_meta": {
-        "title": "KSampler (Advanced/pipe)"
-      }
-    },
-    "67": {
-      "inputs": {
-        "samples": [
-          "66",
-          1
-        ],
-        "vae": [
-          "22",
-          0
-        ]
-      },
-      "class_type": "VAEDecode",
-      "_meta": {
-        "title": "VAE Decode"
-      }
-    },
-    "69": {
-      "inputs": {
-        "width": [
-          "133",
-          0
-        ],
-        "height": [
-          "133",
-          1
-        ],
-        "batch_size": [
-          "132",
-          0
-        ]
-      },
-      "class_type": "EmptyLatentImage",
-      "_meta": {
-        "title": "Empty Latent Image"
-      }
-    },
-    "76": {
-      "inputs": {
-        "value": 7
-      },
-      "class_type": "ImpactFloat",
-      "_meta": {
-        "title": "CFG (ImpactFloat)"
-      }
-    },
-    "77": {
-      "inputs": {
-        "value": 1
-      },
-      "class_type": "ImpactInt",
-      "_meta": {
-        "title": "Steps (ImpactInt)"
-      }
-    },
-    "78": {
-      "inputs": {
-        "sampler_name": "euler_ancestral"
-      },
-      "class_type": "Sampler Selector",
-      "_meta": {
-        "title": "Sampler Selector"
-      }
-    },
-    "104": {
-      "inputs": {
-        "filename_prefix": "Final_Img_",
-        "images": [
-          "67",
-          0
-        ]
-      },
-      "class_type": "SaveImage",
-      "_meta": {
-        "title": "Final Save Image"
-      }
-    },
-    "124": {
-      "inputs": {
-        "string": ""
-      },
-      "class_type": "String Literal",
-      "_meta": {
-        "title": "String Literal"
-      }
-    },
-    "132": {
-      "inputs": {
-        "int": 1
-      },
-      "class_type": "Int Literal",
-      "_meta": {
-        "title": "Int Literal"
-      }
-    },
-    "133": {
-      "inputs": {
-        "preset": " 768 x 1344"
-      },
-      "class_type": "SizeFromPresetsSDXL",
-      "_meta": {
-        "title": "Size From Presets (SDXL)"
-      }
+    "class_type": "StringFunction|pysssss",
+    "_meta": {
+      "title": "Add Positive Prompt String Function 🐍"
     }
+  },
+  "13": {
+    "inputs": {
+      "string": "1girl,"
+    },
+    "class_type": "String Literal",
+    "_meta": {
+      "title": "Character Number (eg: 1girl or 2girls)"
+    }
+  },
+  "16": {
+    "inputs": {
+      "string": "ang, solo"
+    },
+    "class_type": "String Literal",
+    "_meta": {
+      "title": "Character Name (Use for LoRA etc...)"
+    }
+  },
+  "17": {
+    "inputs": {
+      "string": "messy grey long hair, (futa1.21), tattoo, bandages, hair between eyes, (bodypaint1.1), (ahoge1.1), beautiful detailed green eyes"
+    },
+    "class_type": "String Literal",
+    "_meta": {
+      "title": "General Prompt (What is the character doing）"
+    }
+  },
+  "18": {
+    "inputs": {
+      "action": "append",
+      "tidy_tags": "yes",
+      "text_a": [
+        "11",
+        0
+      ],
+      "text_b": [
+        "19",
+        0
+      ],
+      "text_c": [
+        "124",
+        0
+      ]
+    },
+    "class_type": "StringFunction|pysssss",
+    "_meta": {
+      "title": "Add Positive Prompt String Function 🐍"
+    }
+  },
+  "19": {
+    "inputs": {
+      "string": "masterpiece, best quality,"
+    },
+    "class_type": "String Literal",
+    "_meta": {
+      "title": "Quality Prompt"
+    }
+  },
+  "20": {
+    "inputs": {
+      "string": "nsfw, lowres, bad anatomy, bad hands, text, error, 5 fingers, 6 fingers, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name"
+    },
+    "class_type": "String Literal",
+    "_meta": {
+      "title": "Negative Prompt"
+    }
+  },
+  "21": {
+    "inputs": {
+      "ckpt_name": "animagineXLV31_v31.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "22": {
+    "inputs": {
+      "vae_name": "sdxl_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "25": {
+    "inputs": {
+      "lora_name": "add-detail-xl.safetensors",
+      "strength_model": 1,
+      "strength_clip": 1,
+      "model": [
+        "21",
+        0
+      ],
+      "clip": [
+        "31",
+        0
+      ]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "31": {
+    "inputs": {
+      "stop_at_clip_layer": -2,
+      "clip": [
+        "21",
+        1
+      ]
+    },
+    "class_type": "CLIPSetLastLayer",
+    "_meta": {
+      "title": "Clip skip (CLIP Set Last Layer)"
+    }
+  },
+  "35": {
+    "inputs": {
+      "model": [
+        "25",
+        0
+      ],
+      "clip": [
+        "25",
+        1
+      ],
+      "vae": [
+        "22",
+        0
+      ],
+      "positive": [
+        "49",
+        0
+      ],
+      "negative": [
+        "50",
+        0
+      ]
+    },
+    "class_type": "ToBasicPipe",
+    "_meta": {
+      "title": "ToBasicPipe"
+    }
+  },
+  "49": {
+    "inputs": {
+      "text": [
+        "18",
+        0
+      ],
+      "clip": [
+        "25",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Positive CLIP Text Encode (Prompt)"
+    }
+  },
+  "50": {
+    "inputs": {
+      "text": [
+        "20",
+        0
+      ],
+      "clip": [
+        "25",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Negative CLIP Text Encode (Prompt)"
+    }
+  },
+  "66": {
+    "inputs": {
+      "add_noise": true,
+      "noise_seed": 879566234374450,
+      "steps": [
+        "77",
+        0
+      ],
+      "cfg": [
+        "76",
+        0
+      ],
+      "sampler_name": [
+        "78",
+        0
+      ],
+      "scheduler": "normal",
+      "start_at_step": 0,
+      "end_at_step": 10000,
+      "return_with_leftover_noise": false,
+      "basic_pipe": [
+        "35",
+        0
+      ],
+      "latent_image": [
+        "69",
+        0
+      ]
+    },
+    "class_type": "ImpactKSamplerAdvancedBasicPipe",
+    "_meta": {
+      "title": "KSampler (Advanced/pipe)"
+    }
+  },
+  "67": {
+    "inputs": {
+      "samples": [
+        "66",
+        1
+      ],
+      "vae": [
+        "22",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "69": {
+    "inputs": {
+      "width": [
+        "133",
+        0
+      ],
+      "height": [
+        "133",
+        1
+      ],
+      "batch_size": [
+        "132",
+        0
+      ]
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "76": {
+    "inputs": {
+      "value": 7
+    },
+    "class_type": "ImpactFloat",
+    "_meta": {
+      "title": "CFG (ImpactFloat)"
+    }
+  },
+  "77": {
+    "inputs": {
+      "value": 20
+    },
+    "class_type": "ImpactInt",
+    "_meta": {
+      "title": "Steps (ImpactInt)"
+    }
+  },
+  "78": {
+    "inputs": {
+      "sampler_name": "euler_ancestral"
+    },
+    "class_type": "Sampler Selector",
+    "_meta": {
+      "title": "Sampler Selector"
+    }
+  },
+  "104": {
+    "inputs": {
+      "filename_prefix": "Final_Img_",
+      "images": [
+        "67",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Final Save Image"
+    }
+  },
+  "124": {
+    "inputs": {
+      "string": ""
+    },
+    "class_type": "String Literal",
+    "_meta": {
+      "title": "String Literal"
+    }
+  },
+  "132": {
+    "inputs": {
+      "int": 1
+    },
+    "class_type": "Int Literal",
+    "_meta": {
+      "title": "Int Literal"
+    }
+  },
+  "133": {
+    "inputs": {
+      "preset": " 768 x 1344"
+    },
+    "class_type": "SizeFromPresetsSDXL",
+    "_meta": {
+      "title": "Size From Presets (SDXL)"
+    }
+  }
 }
