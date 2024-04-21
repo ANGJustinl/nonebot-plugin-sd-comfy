@@ -46,9 +46,11 @@ async def _(Args_out: Arparma = AlconnaMatches()):
         CharacterNumber, PositiveTags = extract_tags(PositiveTags)
         CharacterName = ""  # test
         NegativeTags = Other_args.get("NegativeTags")
-        await AIDraw.send("命令解析为: "+str(CharacterNumber)+str(PositiveTags)+" 开始绘画")
+        CharacterNumber = "".join(CharacterNumber)
+        Prompt = Prompt.join(PositiveTags)
+        await AIDraw.send("命令解析为: "+str(Prompt)+" 开始绘画")
         images = await aidraw(
-            ApiJson, CharacterNumber, CharacterName, PositiveTags, NegativeTags
+            ApiJson, CharacterNumber, CharacterName, Prompt, NegativeTags
         )
         if images:
             logger.success("SD 绘制成功")
