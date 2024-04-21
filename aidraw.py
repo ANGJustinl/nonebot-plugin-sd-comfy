@@ -81,11 +81,11 @@ async def aidraw(
         async with aiohttp.ClientSession() as session:
             # 将 api JSON字符串解析为Python字典，并根据需要修改其中的文本提示和种子值
             prompt = ApiJson
-            prompt["13"]["inputs"]["text"] = CharacterNumber
-            prompt["16"]["inputs"]["text"] = CharacterName
-            prompt["17"]["inputs"]["text"] = PositiveTags
+            prompt["13"]["inputs"]["string"] = CharacterNumber
+            prompt["16"]["inputs"]["string"] = CharacterName
+            prompt["17"]["inputs"]["string"] = PositiveTags
             if NegativeTags:
-                prompt["20"]["inputs"]["text"] = NegativeTags
+                prompt["20"]["inputs"]["string"] = NegativeTags
             prompt["66"]["inputs"]["noise_seed"] = random.randint(
                 1, 18446744073709550591
             )
