@@ -46,7 +46,7 @@ async def _(Args_out: Arparma = AlconnaMatches()):
         CharacterNumber, PositiveTags = extract_tags(PositiveTags)
         CharacterName = ""  # test
         NegativeTags = Other_args.get("NegativeTags")
-        await AIDraw.send("命令解析为: "+str(Args_out)+" 开始绘画")
+        await AIDraw.send("命令解析为: "+str(CharacterNumber)+str(PositiveTags)+" 开始绘画")
         images = await aidraw(
             ApiJson, CharacterNumber, CharacterName, PositiveTags, NegativeTags
         )
