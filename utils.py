@@ -20,9 +20,11 @@ def extract_tags(input_str):
     for item in str_list:
         if item in ["1girl", "1boy"]:
             characternumber.append(item)
-        if re.search(pattern, item):
-            characternumber.append(item)
-        others.append(item)
+        else:
+            if re.search(pattern, item):
+                characternumber.append(item)
+            else:
+                others.append(item)
 
     # 返回处理后的结果
     return characternumber, others
