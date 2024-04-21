@@ -40,7 +40,7 @@ AIDraw = on_alconna(DrawCommand, auto_send_output=True)
 async def _(Args_out: Arparma = AlconnaMatches()):
     logger.info("画图命令解析: " + str(Args_out))
     if Args_out.matched:
-        PositiveTags = Args_out.main_args
+        PositiveTags = Args_out.main_args.get("PositiveTags")
         Other_args = Args_out.other_args
         # 调用函数并打印结果
         CharacterNumber, PositiveTags = extract_tags(PositiveTags)
